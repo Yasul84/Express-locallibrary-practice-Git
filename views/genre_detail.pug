@@ -1,0 +1,18 @@
+extends layout 
+
+block content 
+    h1 #{title} 
+
+    h3 Genre: #{genre.name} 
+
+    div(style='border-style: solid; padding-top: 20px; padding-left: 20px') 
+
+        h4 Books 
+
+        dl 
+            each book in genre_books 
+                dt 
+                    a(href=book.url) #{book.title} 
+                dd #{book.summary} 
+            else 
+                p This genre has no books. 

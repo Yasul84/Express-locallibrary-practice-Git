@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+    h1 #{title} 
+
+    div(style='border-style: solid; padding-top: 20px; padding-left: 20px') 
+        ul 
+            each author in author_list 
+                li 
+                    a(href= author.url) #{author.name} | (#{author.date_of_birth} - #{author.date_of_death}) 
+            else 
+                li There are no authors. 
+

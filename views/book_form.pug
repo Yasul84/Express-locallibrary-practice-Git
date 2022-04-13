@@ -1,0 +1,42 @@
+extends layout 
+
+block content 
+
+    h1 #{title} 
+
+    form(method='POST' action= '') 
+        div.form-group
+            label(for='title') Book title: 
+            input(type='text' required='true' placeholder='Danny the Champion of the World' name='title' value={undefined === book ? '' : book.title}) 
+            label(for='author') Author: 
+            select(type='select' required='true' placeholder='Select Author' name='author') 
+                - authors.sort(function(a,b) {let textA = a.family_name.toUpperCase(); let textB = b.family_name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0};);
+                for author in authors 
+                    if book 
+                    //- Handle GET form, where book.author is an object, and POST form, where it is a string. 
+                    option(
+                        value=author._id 
+                        selected=(
+                            author._id.toString() == book.author._id 
+                            || author._id.toString() == book.author) ? 'selected' : false
+                        ) #{author.name} 
+                    else 
+                        option(value=author._id) #{author.name}
+                    
+            label(for='isbn') ISBN: 
+            input(type='text' name= 'isbn' placeholder='ISBN13' required='true' value={undefined === book ? '' : book.isbn})
+        div.form-group
+            label(for='genre') Genre: 
+            div 
+                for genre in genres 
+                    div(style='border-style: solid; padding-top:20px; padding-left:20px')
+                        input(type='checkbox' required='true' name='genre' id=genre._id value=genre._id checked=genre.checked)
+                        label(for=genre._id) #{genre.name} 
+            label(for='summary') Summary: 
+            input(type='textarea' placeholder='Summary' name='summary' required='true' value={undefined === book ? '' : book.summary})
+        button.btn.btn-primary(type='submit') Submit
+    if errors 
+        div(style='border-style: solid; padding-top:20px; padding-left:20px') 
+            ul 
+                each error in errors 
+                    li!= error.msg
