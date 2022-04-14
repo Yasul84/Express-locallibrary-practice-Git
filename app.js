@@ -47,7 +47,8 @@ app.use(function(err, req, res, next) {
 });
 
 // Set up default Mongoose Connection
-var mongoDB = 'mongodb+srv://cyclorus84:jingdu@express-locallibrary-pr.nsacg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+var dev_db_url = 'mongodb+srv://cyclorus84:jingdu@express-locallibrary-pr.nsacg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Get the default connection
