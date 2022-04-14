@@ -1,6 +1,9 @@
 {
   "name": "express-locallibrary-practice",
   "version": "0.0.0",
+  "engine": {
+    "node": "16.13.1"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
